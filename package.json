@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --harmony-destructuring node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json"
+    "test": "node --use_strict --harmony-destructuring node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json"
   },
   "author": "",
   "license": "MIT",
