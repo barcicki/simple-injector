@@ -1,7 +1,7 @@
 {
   "extends": ["airbnb-base"],
   "env": {
-    "ndoe": true
+    "node": true
   },
   "rules": {
     "indent": [2, 4]
