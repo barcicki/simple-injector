@@ -4,7 +4,7 @@
  */
 
 const { inject } = require('./lib/injector.js');
-const { INJECTION_PROFILES } = require('./lib/configuration');
+const { setupHtmlInjection } = require('./lib/configuration');
 
 /**
  * It will search for known files in scriptsAndStyles array and inject them in
@@ -12,9 +12,10 @@ const { INJECTION_PROFILES } = require('./lib/configuration');
  * @memberof module:simple-injector
  * @param {string} baseHtml - HTML content to be modified
  * @param {Array.<string>} scriptsAndStyles - flat list of JS and CSS files
+ * @param {HtmlInjectionSettings} [settings] - settings for injecting
  * @returns {string}
  */
-function htmlInjector(baseHtml, scriptsAndStyles) {
+function htmlInjector(baseHtml, scriptsAndStyles, settings) {
     if (!baseHtml || !baseHtml.length) {
         throw new Error('No HTML content provided.');
     }
@@ -23,8 +24,8 @@ function htmlInjector(baseHtml, scriptsAndStyles) {
         return baseHtml;
     }
 
-    return INJECTION_PROFILES
-        .reduce((html, settings) => inject(html, scriptsAndStyles, settings), baseHtml);
+    return setupHtmlInjection(settings)
+        .reduce((html, config) => inject(html, scriptsAndStyles, config), baseHtml);
 }
 
 module.exports = {
