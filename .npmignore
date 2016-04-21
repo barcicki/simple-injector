@@ -1,0 +1,10 @@
+.idea/
+spec/
+jsdoc/
+lib/
+index.js
+.babelrc
+.eslintignore
+.eslintrc
+jsdoc.json
+jasmine.json
