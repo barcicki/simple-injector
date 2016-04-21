@@ -1,59 +1,60 @@
 /* eslint max-len: ["off"] */
-const { baseInjector } = require('../injector');
+const { htmlInjector } = require('../index');
 
 const SAMPLE_HTML_PAGE = '<html><head><title>Test</title><!-- injector:css --><!-- endinjector --></head><body><!-- injector:js --><!-- endinjector --></body></html>';
 
-describe('Base injector', () => {
+describe('HTML Injector', () => {
     it('should throw when no html content are provided', () => {
-        expect(() => baseInjector()).toThrow();
-        expect(() => baseInjector(null)).toThrow();
+        expect(() => htmlInjector()).toThrow();
+        expect(() => htmlInjector(null)).toThrow();
+        expect(() => htmlInjector('')).toThrow();
     });
 
     it('should return unmodified html if list of files is empty', () => {
-        expect(baseInjector('test')).toBe('test');
-        expect(baseInjector('test2', [])).toBe('test2');
+        expect(htmlInjector('test')).toBe('test');
+        expect(htmlInjector('test2', [])).toBe('test2');
     });
 
-    it('should inject js files', () => {
+    it('should htmlInjector js files', () => {
         const initialHtml = SAMPLE_HTML_PAGE;
         const scripts = ['file1.js', 'file2.js'];
         const targetHtml = '<html><head><title>Test</title><!-- injector:css --><!-- endinjector --></head><body><!-- injector:js --><script src="file1.js"></script><script src="file2.js"></script><!-- endinjector --></body></html>';
 
-        const finalHtml = baseInjector(initialHtml, scripts);
+        const finalHtml = htmlInjector(initialHtml, scripts);
 
         expect(finalHtml).toBe(targetHtml);
     });
 
-    it('should inject js in place of previously inject js files', () => {
+    it('should htmlInjector js in place of previously htmlInjector js files', () => {
         const initialHtml = SAMPLE_HTML_PAGE;
         const firstScriptSet = ['file1.js'];
         const secondScriptSet = ['file2.js'];
         const targetHtml = '<html><head><title>Test</title><!-- injector:css --><!-- endinjector --></head><body><!-- injector:js --><script src="file2.js"></script><!-- endinjector --></body></html>';
 
-        const middleHtml = baseInjector(initialHtml, firstScriptSet);
-        const finalHtml = baseInjector(middleHtml, secondScriptSet);
+        const middleHtml = htmlInjector(initialHtml, firstScriptSet);
+        const finalHtml = htmlInjector(middleHtml, secondScriptSet);
 
         expect(finalHtml).toBe(targetHtml);
     });
 
-    it('should inject css files', () => {
+    it('should htmlInjector css files', () => {
         const initialHtml = SAMPLE_HTML_PAGE;
         const styles = ['file1.css', 'file2.css'];
         const targetHtml = '<html><head><title>Test</title><!-- injector:css --><link rel="stylesheet" href="file1.css" type="text/css"><link rel="stylesheet" href="file2.css" type="text/css"><!-- endinjector --></head><body><!-- injector:js --><!-- endinjector --></body></html>';
 
-        const finalHtml = baseInjector(initialHtml, styles);
+        const finalHtml = htmlInjector(initialHtml, styles);
 
         expect(finalHtml).toBe(targetHtml);
     });
 
-    it('should inject css in place of previously inject css files', () => {
+    it('should htmlInjector css in place of previously htmlInjector css files', () => {
         const initialHtml = SAMPLE_HTML_PAGE;
         const firstStylesSet = ['file1.css'];
         const secondStylesSet = ['file2.css'];
         const targetHtml = '<html><head><title>Test</title><!-- injector:css --><link rel="stylesheet" href="file2.css" type="text/css"><!-- endinjector --></head><body><!-- injector:js --><!-- endinjector --></body></html>';
 
-        const middleHtml = baseInjector(initialHtml, firstStylesSet);
-        const finalHtml = baseInjector(middleHtml, secondStylesSet);
+        const middleHtml = htmlInjector(initialHtml, firstStylesSet);
+        const finalHtml = htmlInjector(middleHtml, secondStylesSet);
 
         expect(finalHtml).toBe(targetHtml);
     });

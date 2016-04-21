@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --use_strict --harmony-destructuring node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json"
+    "test": "node --use_strict --harmony-destructuring node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json",
+    "jsdoc": "jsdoc -c jsdoc.json"
   },
   "author": "",
   "license": "MIT",
@@ -12,6 +13,7 @@
     "eslint": "^2.8.0",
     "eslint-config-airbnb-base": "^1.0.2",
     "eslint-plugin-import": "^1.5.0",
-    "jasmine": "^2.4.1"
+    "jasmine": "^2.4.1",
+    "jsdoc": "^3.4.0"
   }
 }
